@@ -33,6 +33,45 @@ The classes are inside `lib/`, and the other files are used to test and demonstr
 
 ## Design
 
+```mermaid
+classDiagram
+    class LibraryItem {
+        +title
+        +author
+        +year
+        +genre
+        +display_info()
+        -creator_label()
+    }
+    class Book {
+        +pages
+        +display_info()
+    }
+    class DVD {
+        +duration
+        +director()
+        +display_info()
+        -creator_label()
+    }
+    class CD {
+        +tracks
+        +artist()
+        +display_info()
+        -creator_label()
+    }
+    class Library {
+        -items
+        +add_item(item)
+        +remove_item(title)
+        +display_item(item)
+        +display_all_items()
+    }
+    LibraryItem <|-- Book
+    LibraryItem <|-- DVD
+    LibraryItem <|-- CD
+    Library o-- LibraryItem
+```
+
 **`LibraryItem`.** This is the base class for all items. It stores the common information like title, author, year and genre. It also checks some invalid input, for example an empty title or wrong year. I do not allow this class to be created directly because it is only meant to be used as a parent class.
 
 **`Book`, `DVD`, `CD`.** These classes inherit from `LibraryItem`. They only add the parts that are different. For example, a Book can have pages, a DVD can have duration, and a CD can have tracks. Their `display_info` methods use `super` and then print their own extra information.
@@ -41,7 +80,7 @@ The classes are inside `lib/`, and the other files are used to test and demonstr
 
 **Why genre is in the base class.** The task text gives genre as an example of a Book property, but the test examples give a genre for Book, DVD and CD, so I treated genre as common data. If I added it separately in every child class, I would repeat the same code.
 
-**Optional properties.** `pages`, `duration` and `tracks` are optional, so the program still works with the values given in the task.
+**Optional properties.** `pages`, `duration` and `tracks` are optional, so the program still works with the values given in the task. The values come from the test guide in the task, but the classes work for any values.
 
 ## Results
 
@@ -64,6 +103,8 @@ CD: A Day at the Races
 
 `display_all_items` then prints the same items through the `Library` class.
 
+The specific properties (pages, duration, tracks) are optional, so they are not shown here. `demo.rb` shows them.
+
 In `demo.rb` I also checked the OOP ideas separately:
 
 | Output                            | What it shows                                          |
@@ -76,6 +117,48 @@ In `demo.rb` I also checked the OOP ideas separately:
 | Book, DVD, CD, Magazine details   | polymorphism                                           |
 | `Inception`, `nil`                | removing an item works, and missing items return `nil` |
 | `only library items can be added` | other object types are rejected                        |
+
+<details>
+<summary>Full output of <code>ruby demo.rb</code></summary>
+
+```text
+true
+Christopher Nolan
+Queen
+undefined method `title=' for an instance of Book
+LibraryItem is abstract
+year must be a positive integer
+
+Book: Clean Code
+  Author: Robert Martin
+  Year: 2008
+  Genre: Programming
+  Pages: 464
+
+DVD: Inception
+  Director: Christopher Nolan
+  Year: 2010
+  Genre: Science Fiction
+  Duration: 148 min
+
+CD: A Day at the Races
+  Artist: Queen
+  Year: 1976
+  Genre: Rock
+  Tracks: 10
+
+Magazine: Tech Monthly
+  Publisher: Tech Press
+  Year: 2024
+  Genre: Technology
+  Issue: 7
+
+Inception
+nil
+only library items can be added
+```
+
+</details>
 
 ### Polymorphism
 

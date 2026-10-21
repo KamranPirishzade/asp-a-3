@@ -42,7 +42,7 @@ The first run was always the slowest. In the other runs, static and stack were 0
 
 ## Explanation
 
-Static and stack memory were almost the same speed, below 1 ns per call.. Static memory already exists, and stack allocation is very cheap because it mainly changes the stack pointer. The array size made no difference for static and stack, because the cost does not depend on how much memory is reserved.
+Static and stack memory were almost the same speed, below 1 ns per call. Static memory already exists, and stack allocation is very cheap because it mainly changes the stack pointer. The array size made no difference for static and stack, because the cost does not depend on how much memory is reserved.
 
 Heap memory was much slower because `malloc` and `free` have to manage memory every time the function is called.
 
@@ -54,7 +54,7 @@ In lecture 3 terms, these are a static array, a fixed stack-dynamic array and a 
 
 ## Critique
 
-- Static and stack are both almost free here. Around 1 ns is very small, so most of that time may just be the function call and loop. In 5 runs neither was faster every time, so I cannot say which one is faster.
+- Static and stack are both almost free here. Below 1 ns is very small, so most of that time may just be the function call and loop. In 5 runs neither was faster every time, so I cannot say which one is faster.
 - The heap test is probably an easy case for `malloc`. The program always allocates the same size and frees it immediately, so the allocator can reuse memory. In a real program with different sizes, the heap can be slower.
 - I only write to the first and last element. A real program would usually use more of the array, so this test does not include the full cost of touching all memory pages. This matters more for the heap: static and stack pages stay loaded after the first call, but new heap memory may not.
 - Static memory also has disadvantages. The same array is shared between calls, so it is not safe with recursion or threads, and it stays in memory for the whole program.
