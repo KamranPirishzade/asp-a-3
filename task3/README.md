@@ -4,6 +4,17 @@
 
 The goal is to build a small library catalog in Ruby and show the main OOP ideas: classes, inheritance, encapsulation and polymorphism.
 
+## How to run
+
+From the `task3` folder:
+
+```bash
+ruby main.rb
+ruby demo.rb
+```
+
+Ruby 3 or newer is required.
+
 ## Structure
 
 ```text
@@ -108,14 +119,3 @@ Compared to C# in Task 2:
 - **`display_info` prints directly.** This is enough for the task, but returning a string could make testing easier.
 
 - **Items do not have unique IDs.** If two items have the same title, `remove_item` removes the first one it finds.
-
-## How to run
-
-From the `task3` folder:
-
-```bash
-ruby main.rb
-ruby demo.rb
-```
-
-Ruby 3 or newer is required.

@@ -4,6 +4,16 @@
 
 Show the difference between static and dynamic binding in C#, using the `virtual`, `new` and `override` keywords.
 
+## How to run
+
+I ran the program on [onlinegdb.com](https://www.onlinegdb.com): choose C#, paste the code from `Binding.cs` and click Run.
+
+It should also run with .NET 10 or newer, from the `task2` folder:
+
+```bash
+dotnet run Binding.cs
+```
+
 ## Idea
 
 When a method is called, the program must decide which version to run: the parent's or the child's.
@@ -81,12 +91,3 @@ In short: with `override` the real object decides, with `new` the variable type 
 
 - **My "own type" view uses manual type checks.** I use checks like `as Dog` and `as Cat` to call the child versions. If I add more classes, this becomes longer, which is why using `override` and polymorphism is usually cleaner.
 
-## How to run
-
-I ran the program on [onlinegdb.com](https://www.onlinegdb.com): choose C#, paste the code from `Binding.cs` and click Run.
-
-It should also run with .NET 10 or newer, from the `task2` folder:
-
-```bash
-dotnet run Binding.cs
-```

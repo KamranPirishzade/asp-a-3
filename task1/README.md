@@ -4,6 +4,16 @@
 
 The goal is to compare how fast it is to get a large array using static, stack and heap memory when a function is called many times.
 
+## How to run
+
+```bash
+gcc -O2 -Wall -Wextra memory.c -o memory
+./memory
+
+gcc -O2 -DSIZE=1000 memory.c -o memory_small
+./memory_small
+```
+
 ## How it works
 
 `memory.c` has three functions:
@@ -22,11 +32,11 @@ The number of calls is given by the user. `SIZE` is set at compile time (default
 
 macOS, Apple M5, Apple clang, `-O2`, 10,000,000 calls:
 
-| | 3.8 MB array | 4 KB array |
-|---|---|---|
-| static | 0.9 ns | 1.0 ns |
-| stack | 0.8 ns | 0.7 ns |
-| heap | 46.0 ns | 15.0 ns |
+|        | 3.8 MB array | 4 KB array |
+| ------ | ------------ | ---------- |
+| static | 0.9 ns       | 1.0 ns     |
+| stack  | 0.8 ns       | 0.7 ns     |
+| heap   | 46.0 ns      | 15.0 ns    |
 
 ## Explanation
 
@@ -45,13 +55,3 @@ The heap is slower, but it is still useful when the size is only known at run ti
 - I only write to the first and last element. A real program would usually use more of the array, so this test does not include the full cost of touching all memory pages. This matters more for the heap: static and stack pages stay loaded after the first call, but new heap memory may not.
 - Static memory also has disadvantages. The same array is shared between calls, so it is not safe with recursion or threads, and it stays in memory for the whole program.
 - The result is only from my machine, from one run, and static is always measured first. Different compilers can also change the result. On Linux, gcc may check every 4 KB page for a large stack array, so stack allocation can be slower there.
-
-## How to run
-
-```bash
-gcc -O2 -Wall -Wextra memory.c -o memory
-./memory
-
-gcc -O2 -DSIZE=1000 memory.c -o memory_small
-./memory_small
-```
